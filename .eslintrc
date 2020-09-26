@@ -1,0 +1,86 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true,
+		"node": true,
+		"jest": true
+	},
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2019,
+		"sourceType": "module"
+	},
+	"settings": {
+		"react": {
+			"createClass": "createReactClass", // Regex for Component Factory to use,
+			// default to "createReactClass"
+			"pragma": "React", // Pragma to use, default to "React"
+			"version": "detect" // React version, default to the latest React stable release
+		},
+		"propWrapperFunctions": [
+			// The names of any function used to wrap propTypes, e.g. `forbidExtraProps`. If this isn't set, any propTypes wrapped in a function will be skipped.
+			"forbidExtraProps",
+			{ "property": "freeze", "object": "Object" },
+			{ "property": "myFavoriteWrapper" }
+		]
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:prettier/recommended"
+	],
+	"plugins": [
+		"better-styled-components",
+		"react",
+		"import",
+		"prettier",
+		"simple-import-sort",
+		"sort-destructure-keys"
+	],
+	"rules": {
+		"no-case-declarations": "off",
+		"prettier/prettier": "error",
+		"better-styled-components/sort-declarations-alphabetically": "error",
+		"react/no-find-dom-node": "off",
+		"react/jsx-sort-props": [
+			"error",
+			{
+				"ignoreCase": true,
+				"callbacksLast": false,
+				"shorthandFirst": false,
+				"shorthandLast": false,
+				"noSortAlphabetically": false,
+				"reservedFirst": true
+			}
+		],
+		"react/sort-prop-types": "error",
+		"import/order": "off",
+		"import/first": "error",
+		"import/newline-after-import": "error",
+		"import/no-duplicates": "error",
+		"sort-imports": "off",
+		"simple-import-sort/sort": [
+			"error",
+			{
+				"groups": [
+					[
+						"^(_http_agent|_http_client|_http_common|_http_incoming|_http_outgoing|_http_server|_stream_duplex|_stream_passthrough|_stream_readable|_stream_transform|_stream_wrap|_stream_writable|_tls_common|_tls_wrap|assert|async_hooks|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|http2|https|inspector|module|net|os|path|perf_hooks|process|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|trace_events|tty|url|util|v8|vm|worker_threads|zlib)(/.*|$)"
+					],
+					["^react", "^styled-components", "^@?\\w", "^\\u0000"],
+					[
+						"^\\.\\./?$",
+						"^\\.\\.(?!/?$)",
+						"^\\./(?=.*/)(?!/?$)",
+						"^\\./?$",
+						"^\\.(?!/?$)"
+					],
+					["^.+\\.css$", "^.+\\.scss$", "^.+\\.less"]
+				]
+			}
+		],
+		"sort-destructure-keys/sort-destructure-keys": "error"
+	}
+}
