@@ -6,19 +6,25 @@ const initialState = [];
 const notes = (state = initialState, action) => {
 	switch (action.type) {
 		case LOAD_NOTES:
-			const notes = api.loadNotes();
+			let notes = [];
+			api.loadNotes().then(response => response.data.rows);
 
 			return notes;
 
 		case CREATE_NOTE:
 			api.createNote(action.payload);
 
-			const { color, text, title } = action.payload;
-
-			return [...state, { title, text, color, createdAt: new Date() }];
+			return [
+				...state,
+				{
+					id: new Date().toISOString(),
+					createdAt: new Date(),
+					...action.payload
+				}
+			];
 
 		case DELETE_NOTE:
-			api.deleteNote(action.payload.id);
+			api.deleteNote(action.payload);
 
 			return state.filter(note => note.id !== action.payload.id);
 

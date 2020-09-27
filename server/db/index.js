@@ -1,6 +1,5 @@
-import Dexie from "dexie";
+const PouchDB = require("pouchdb");
 
-const db = new Dexie("NotesDatabase");
-db.version(1).stores({ notes: "++id, title, text, color, createdAt" });
+const db = new PouchDB("NotesDatabase");
 
 export default db;

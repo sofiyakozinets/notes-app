@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { array, func } from "prop-types";
 
 import NoteEditor from "../NoteEditor";
@@ -6,14 +6,16 @@ import NotesGrid from "../NotesGrid";
 import * as S from "./styled";
 
 const NotesApp = ({ createNote, deleteNote, loadNotes, notes }) => {
-	loadNotes();
+	useEffect(() => {
+		loadNotes();
+	}, []);
 
-	const handleCreateNote = noteData => {
-		createNote(noteData);
+	const handleCreateNote = note => {
+		createNote(note);
 	};
 
 	const handleDeleteNote = note => {
-		deleteNote(note.id);
+		deleteNote(note);
 	};
 
 	return (

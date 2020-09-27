@@ -1,19 +1,17 @@
 import db from "../db";
 
 export const loadNotes = () => {
-	return db.notes.toArray();
+	return db.allDocs({ include_docs: true, descending: true });
 };
 
-export const createNote = data => {
-	const { color, text, title } = data;
-
-	return db.notes.add({ title, text, color, createdAt: new Date() });
+export const createNote = note => {
+	return db.post({
+		id: new Date().toISOString(),
+		createdAt: new Date(),
+		...note
+	});
 };
 
-export const deleteNote = id => {
-	return db.notes.delete(id);
-};
-
-export const updateNote = (id, data) => {
-	return db.notes.update(id, data);
+export const deleteNote = note => {
+	return db.remove(note);
 };

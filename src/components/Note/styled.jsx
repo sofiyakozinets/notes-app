@@ -17,6 +17,7 @@ export const Note = styled.div`
 	height: auto;
 	margin-bottom: 10px;
 	padding: 10px;
+	position: relative;
 	transition: box-shadow 0.3s;
 	white-space: pre-wrap;
 	width: 250px;

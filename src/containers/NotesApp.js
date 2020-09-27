@@ -9,8 +9,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	loadNotes: () => dispatch(loadNotes()),
-	createNote: () => dispatch(createNote()),
-	deleteNote: () => dispatch(deleteNote())
+	createNote: note => dispatch(createNote(note)),
+	deleteNote: note => dispatch(deleteNote(note))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotesApp);

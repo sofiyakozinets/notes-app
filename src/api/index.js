@@ -7,12 +7,12 @@ const api = {
 		return axios.get(`${API_PREFIX}/notes`);
 	},
 
-	createNote: data => {
-		return axios.post(`${API_PREFIX}/notes`, data);
+	createNote: note => {
+		return axios.post(`${API_PREFIX}/notes`, note);
 	},
 
-	deleteNote: noteId => {
-		return axios.delete(`${API_PREFIX}/notes/${noteId}`);
+	deleteNote: note => {
+		return axios.delete(`${API_PREFIX}/notes/${note.id}`);
 	}
 };
 
