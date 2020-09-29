@@ -1,15 +1,21 @@
 import { connect } from "react-redux";
 
-import { createNote, deleteNote, loadNotes } from "../actions/notes";
+import {
+	createNoteRequest,
+	deleteNote,
+	loadNotesRequest
+} from "../actions/notes";
 import NotesApp from "../components/NotesApp";
 
-const mapStateToProps = state => ({
-	notes: state.notes
+const mapStateToProps = ({ notes: state }) => ({
+	error: state.error,
+	notes: state.notes,
+	pending: state.pending
 });
 
 const mapDispatchToProps = dispatch => ({
-	loadNotes: () => dispatch(loadNotes()),
-	createNote: note => dispatch(createNote(note)),
+	loadNotes: () => dispatch(loadNotesRequest()),
+	createNote: note => dispatch(createNoteRequest(note)),
 	deleteNote: note => dispatch(deleteNote(note))
 });
 

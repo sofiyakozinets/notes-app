@@ -1,3 +1,7 @@
-export const CREATE_NOTE = "CREATE_NOTE";
+export const LOAD_NOTES_PENDING = "LOAD_NOTES_PENDING";
+export const LOAD_NOTES_SUCCESS = "LOAD_NOTES_SUCCESS";
+export const LOAD_NOTES_ERROR = "LOAD_NOTES_ERROR";
+
+export const CREATE_NOTE = "CREATE_NOTE_ERROR";
+
 export const DELETE_NOTE = "DELETE_NOTE";
-export const LOAD_NOTES = "LOAD_NOTES";

@@ -1,14 +1,23 @@
 import React, { useEffect } from "react";
-import { array, func } from "prop-types";
+import { array, bool, func, string } from "prop-types";
 
 import NoteEditor from "../NoteEditor";
 import NotesGrid from "../NotesGrid";
 import * as S from "./styled";
 
-const NotesApp = ({ createNote, deleteNote, loadNotes, notes }) => {
+const NotesApp = ({
+	createNote,
+	deleteNote,
+	error,
+	loadNotes,
+	notes,
+	pending
+}) => {
 	useEffect(() => {
 		loadNotes();
 	}, []);
+
+	const showNotes = !pending && !error;
 
 	const handleCreateNote = note => {
 		createNote(note);
@@ -22,7 +31,9 @@ const NotesApp = ({ createNote, deleteNote, loadNotes, notes }) => {
 		<S.Container>
 			<S.Header>NotesApp</S.Header>
 			<NoteEditor onCreateNote={handleCreateNote} />
-			<NotesGrid notes={notes} onDeleteNote={handleDeleteNote} />
+			{pending && <div>Loading...</div>}
+			{error && <div>Sorry, there was an error. {error}</div>}
+			{showNotes && <NotesGrid notes={notes} onDeleteNote={handleDeleteNote} />}
 		</S.Container>
 	);
 };
@@ -30,12 +41,16 @@ const NotesApp = ({ createNote, deleteNote, loadNotes, notes }) => {
 NotesApp.propTypes = {
 	createNote: func.isRequired,
 	deleteNote: func.isRequired,
+	error: string,
 	loadNotes: func.isRequired,
-	notes: array
+	notes: array,
+	pending: bool
 };
 
 NotesApp.defaultProps = {
-	notes: []
+	error: null,
+	notes: [],
+	pending: false
 };
 
 export default NotesApp;

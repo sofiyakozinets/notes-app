@@ -4,7 +4,7 @@ import { func, string } from "prop-types";
 import * as S from "./styled";
 
 const Note = ({ children, color, onDelete, title }) => (
-	<S.Note color={color}>
+	<S.Note color={color} data-masonry="note">
 		<S.Icon onClick={onDelete}> × </S.Icon>
 		{title ? <S.Title>{title}</S.Title> : null}
 		<div>{children}</div>

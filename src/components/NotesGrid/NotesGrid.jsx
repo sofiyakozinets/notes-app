@@ -6,10 +6,10 @@ import Note from "../Note";
 import * as S from "./styled";
 
 const masonryOptions = {
-	itemSelector: ".Note",
+	itemSelector: "[data-masonry='note']",
 	columnWidth: 250,
 	gutter: 10,
-	isFitWidth: true
+	fitWidth: true
 };
 
 const NotesGrid = ({ notes, onDeleteNote }) =>
