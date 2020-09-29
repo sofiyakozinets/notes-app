@@ -1,6 +1,8 @@
 import api from "../api";
 import {
-	CREATE_NOTE,
+	CREATE_NOTE_ERROR,
+	CREATE_NOTE_PENDING,
+	CREATE_NOTE_SUCCESS,
 	DELETE_NOTE,
 	LOAD_NOTES_ERROR,
 	LOAD_NOTES_PENDING,
@@ -22,7 +24,6 @@ export const loadNotesRequest = () => {
 		api
 			.loadNotes()
 			.then(response => {
-				console.log("load response", response);
 				const notes = response.data.rows.map(item => ({
 					...item.doc,
 					id: item.doc._id
@@ -36,22 +37,31 @@ export const loadNotesRequest = () => {
 	};
 };
 
-export const createNote = note => {
-	return { type: CREATE_NOTE, payload: note };
-};
+export const createNotePending = () => ({ type: CREATE_NOTE_PENDING });
+export const createNoteSuccess = note => ({ type: CREATE_NOTE_SUCCESS, note });
+export const createNoteError = error => ({ type: CREATE_NOTE_ERROR, error });
 export const createNoteRequest = note => {
 	note = {
 		...note,
-		id: new Date().toISOString(),
 		createdAt: new Date()
 	};
-
-	api.createNote(note).then(response => {
-		console.log("response create", response);
-		const createdNote = response;
-
-		createNote(createdNote);
-	});
+	return dispatch => {
+		dispatch(createNotePending());
+		api
+			.createNote(note)
+			.then(response => {
+				note = {
+					...note,
+					id: response.data.id,
+					_id: response.data.id,
+					_rev: response.data.rev
+				};
+				dispatch(createNoteSuccess(note));
+			})
+			.catch(error => {
+				dispatch(createNoteError(error));
+			});
+	};
 };
 
 export const deleteNote = note => ({ type: DELETE_NOTE, payload: note });
