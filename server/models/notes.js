@@ -5,13 +5,9 @@ export const loadNotes = () => {
 };
 
 export const createNote = note => {
-	return db.post({
-		id: new Date().toISOString(),
-		createdAt: new Date(),
-		...note
-	});
+	return db.post(note);
 };
 
-export const deleteNote = note => {
-	return db.remove(note);
+export const deleteNote = noteId => {
+	return db.get(noteId).then(doc => db.remove(doc));
 };

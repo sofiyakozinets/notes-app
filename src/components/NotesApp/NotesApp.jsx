@@ -23,8 +23,8 @@ const NotesApp = ({
 		createNote(note);
 	};
 
-	const handleDeleteNote = note => {
-		deleteNote(note);
+	const handleDeleteNote = noteId => {
+		deleteNote(noteId);
 	};
 
 	return (

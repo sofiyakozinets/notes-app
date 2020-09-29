@@ -20,7 +20,7 @@ const NotesGrid = ({ notes, onDeleteNote }) =>
 					<Note
 						key={note.id}
 						color={note.color}
-						onDelete={() => onDeleteNote(note)}
+						onDelete={() => onDeleteNote(note.id)}
 						title={note.title}
 					>
 						{note.text}

@@ -3,7 +3,9 @@ import {
 	CREATE_NOTE_ERROR,
 	CREATE_NOTE_PENDING,
 	CREATE_NOTE_SUCCESS,
-	DELETE_NOTE,
+	DELETE_NOTE_ERROR,
+	DELETE_NOTE_PENDING,
+	DELETE_NOTE_SUCCESS,
 	LOAD_NOTES_ERROR,
 	LOAD_NOTES_PENDING,
 	LOAD_NOTES_SUCCESS
@@ -64,4 +66,22 @@ export const createNoteRequest = note => {
 	};
 };
 
-export const deleteNote = note => ({ type: DELETE_NOTE, payload: note });
+export const deleteNotePending = () => ({ type: DELETE_NOTE_PENDING });
+export const deleteNoteSuccess = noteId => ({
+	type: DELETE_NOTE_SUCCESS,
+	noteId
+});
+export const deleteNoteError = error => ({ type: DELETE_NOTE_ERROR, error });
+export const deleteNoteRequest = noteId => {
+	return dispatch => {
+		dispatch(deleteNotePending());
+		api
+			.deleteNote(noteId)
+			.then(() => {
+				dispatch(deleteNoteSuccess(noteId));
+			})
+			.catch(error => {
+				dispatch(deleteNoteError(error));
+			});
+	};
+};

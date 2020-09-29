@@ -11,8 +11,8 @@ const api = {
 		return axios.post(`${API_PREFIX}/notes`, note);
 	},
 
-	deleteNote: note => {
-		return axios.delete(`${API_PREFIX}/notes/${note.id}`);
+	deleteNote: noteId => {
+		return axios.delete(`${API_PREFIX}/notes/${noteId}`);
 	}
 };
 

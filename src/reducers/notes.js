@@ -1,9 +1,10 @@
-import api from "../api";
 import {
 	CREATE_NOTE_ERROR,
 	CREATE_NOTE_PENDING,
 	CREATE_NOTE_SUCCESS,
-	DELETE_NOTE,
+	DELETE_NOTE_ERROR,
+	DELETE_NOTE_PENDING,
+	DELETE_NOTE_SUCCESS,
 	LOAD_NOTES_ERROR,
 	LOAD_NOTES_PENDING,
 	LOAD_NOTES_SUCCESS
@@ -31,12 +32,13 @@ const notes = (state = initialState, action) => {
 		case CREATE_NOTE_ERROR:
 			return { ...state, pending: false, error: action.error };
 
-		case DELETE_NOTE:
-			api
-				.deleteNote(action.payload)
-				.then(response => console.log("delete", response));
-
-			return state.filter(note => note.id !== action.payload.id);
+		case DELETE_NOTE_PENDING:
+			return { ...state, pending: true };
+		case DELETE_NOTE_SUCCESS:
+			const notes = state.notes.filter(note => note.id !== action.noteId);
+			return { ...state, pending: false, notes };
+		case DELETE_NOTE_ERROR:
+			return { ...state, pending: false, error: action.error };
 
 		default:
 			return state;
